@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/releasenotes.txt
+/app/service-account.json
+/app/service-account-firebase-dist.json
+/app/teste.jks
