@@ -1,12 +1,14 @@
-name: Publish App
+name: Android build
 
-on:
-  pull_request:
-    types: [closed]
+on: pull_request
 
 jobs:
-  build:
-    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+  build_and_publish:
+  env:
+    KEYSTORE_JKS: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+    GOOGLE_PLAY_JSON: ${{ secrets.GOOGLEPLAY_SERVICE_ACCOUNT_FILE }}
+    FIREBASE_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FILE }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,5 +19,17 @@ jobs:
         with:
           java-version: 11
 
-      - name: Publish App
-        run: ./gradlew assembleRelease publishBundle --track production
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Create Firebase JSON
+          - echo $FIREBASE_JSON | base64 -d > app/service-account-firebase-dist.json
+
+      - name: Create Google Play JSON
+          - echo $GOOGLE_PLAY_JSON | base64 -d > app/service-account.json
+
+      - name: Create JKS
+          - echo $KEYSTORE_JKS | base64 -d > app/teste.jks
+
+      - name: Build Project
+        run: ./gradlew assemble
