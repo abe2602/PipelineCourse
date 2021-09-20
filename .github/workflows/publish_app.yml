@@ -1,14 +1,19 @@
 name: Android build
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
 
 jobs:
   build_and_publish:
-  env:
-    KEYSTORE_JKS: ${{ secrets.ANDROID_KEYSTORE_FILE }}
-    GOOGLE_PLAY_JSON: ${{ secrets.GOOGLEPLAY_SERVICE_ACCOUNT_FILE }}
-    FIREBASE_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FILE }}
+    env:
+      KEYSTORE_JKS: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+      GOOGLE_PLAY_JSON: ${{ secrets.GOOGLEPLAY_SERVICE_ACCOUNT_FILE }}
+      FIREBASE_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FILE }}
 
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +23,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-
-      - name: Run Tests
-        run: ./gradlew test
 
       - name: Create Firebase JSON
           - echo $FIREBASE_JSON | base64 -d > app/service-account-firebase-dist.json
