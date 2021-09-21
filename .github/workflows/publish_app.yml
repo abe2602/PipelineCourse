@@ -25,13 +25,13 @@ jobs:
           java-version: 11
 
       - name: Create Firebase JSON
-          - echo $FIREBASE_JSON | base64 -d > app/service-account-firebase-dist.json
+        run: echo $FIREBASE_JSON | base64 -d > app/service-account-firebase-dist.json
 
       - name: Create Google Play JSON
-          - echo $GOOGLE_PLAY_JSON | base64 -d > app/service-account.json
+        run: echo $GOOGLE_PLAY_JSON | base64 -d > app/service-account.json
 
       - name: Create JKS
-          - echo $KEYSTORE_JKS | base64 -d > app/teste.jks
+        run: echo $KEYSTORE_JKS | base64 -d > app/teste.jks
 
       - name: Build Project
         run: ./gradlew assemble
