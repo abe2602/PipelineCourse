@@ -17,7 +17,7 @@ android {
         applicationId "com.abe.pipelinecourse"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 116
+        versionCode 117
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
