@@ -1,6 +1,10 @@
 name: Android build
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build_and_publish:
     env:
@@ -8,7 +12,6 @@ jobs:
       GOOGLE_PLAY_JSON: ${{ secrets.GOOGLEPLAY_SERVICE_ACCOUNT_FILE }}
       FIREBASE_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FILE }}
 
-    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
