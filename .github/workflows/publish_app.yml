@@ -1,4 +1,4 @@
-name: Android build
+name: Android Publish
 
 on:
   pull_request:
