@@ -28,4 +28,4 @@ jobs:
         run: echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > app/teste.jks
 
       - name: Build Project
-        run: ./gradlew assemble
+        run: ./gradlew assembleRelease publishBundle
